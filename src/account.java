@@ -13,6 +13,7 @@ public class account {
         this.accountNumber = accountNumber;
         this.creationDate = creationDate;
         this.balance = balance;
+        this.accountPassword=accountPassword;
     }
 
     public void setAccountOwnerName(String accountOwnerName) {
@@ -54,6 +55,7 @@ public class account {
         System.out.println("Account Number: " + this.accountNumber);
         System.out.println("Creation Date: " + this.creationDate);
         System.out.println("Balance: $" + balance);
+        System.out.println(this.accountPassword);
         System.out.println();
     }
 
@@ -64,6 +66,7 @@ public class account {
     }
 
     public void withdraw(double amount) {
+
         if (balance - amount >= 0) {
             balance -= amount;
             System.out.println("Amount withdrawn successfully.");
