@@ -18,6 +18,12 @@ public class run {
                 // it will create new a account  
                   newBank.createAccount();
                 }
+                else if(Userinput.choice==2){
+
+                  newBank.DisplayAllAccount();
+                  
+
+                }
                 else if(Userinput.choice==8){
                   // code will exit by user input of 8  
                   ck=false;

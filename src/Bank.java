@@ -28,13 +28,23 @@ public class Bank {
         System.out.println("Enter your password: ");
         String password = scanner.nextLine();
 
-        getInitialDepositAmount(minimumBalance);
-
         
 
+        System.out.println("Enter initial deposit amount: ");
+       double initialDeposit = scanner.nextDouble();
+
+        if (initialDeposit < minimumBalance) {
+
+            
+            System.out.println("Initial deposit must be at least $" + minimumBalance);
+            System.out.println("Account creation failed");
+
+            return;           
+
+        }
        
 
-        account newAccount = new account(name, accountNumber, creationDate, password,minimumBalance);
+        account newAccount = new account(name, accountNumber, creationDate, password,initialDeposit);
         accounts.add(newAccount);
 
         System.out.println("Account created successfully.");
@@ -42,18 +52,16 @@ public class Bank {
         return;
     }
 
-    public void getInitialDepositAmount(double minimumBalance){
-        System.out.println("Enter initial deposit amount: ");
-        double initialDeposit = scanner.nextDouble();
-        if (initialDeposit < minimumBalance) {
+    public void DisplayAllAccount(){
 
-            System.out.println("Initial deposit must be at least $" + minimumBalance);
-
-            getInitialDepositAmount(minimumBalance);           
-
+        for (account account : accounts) {
+            account.displayAccountInfo();
+            
         }
 
     }
+
+
 
    
     

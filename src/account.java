@@ -50,12 +50,12 @@ public class account {
 
 
     public void displayAccountInfo() {
+        
         System.out.println("Account Details:");
         System.out.println("Name: " + this.accountOwnerName);
         System.out.println("Account Number: " + this.accountNumber);
         System.out.println("Creation Date: " + this.creationDate);
         System.out.println("Balance: $" + balance);
-        System.out.println(this.accountPassword);
         System.out.println();
     }
 
