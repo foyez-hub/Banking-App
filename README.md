@@ -4,57 +4,56 @@ A console-based Java application for managing bank accounts, offering various fu
 
 ## Features
 
-1. **Create a New Account:**
+1. *Create a New Account:*
    - Choose the account type (Saving, Salary, Current).
    - Input your name, account creation date, password, and initial deposit amount.
    - Receive feedback on the success or failure of account creation.
-   ## Types of Account:
+## Types of Account:
 
-### Saving Account :
+ ### Saving Account :
 
 - **Minimum Balance Requirement:** A minimum balance of $100 is required to open a Saving Account.
 - **Account Type:** The account type is set to "Saving Account."
 - **Withdrawal Constraints:** Withdrawals are allowed only if the remaining balance after withdrawal is greater than or equal to the minimum balance.
 
-### Salary Account :
+ ### Salary Account :
 
 - **Minimum Balance Requirement:** No minimum balance is required for a Salary Account.
 - **Account Type:** The account type is set to "Salary Account."
 - **Withdrawal Constraints:** Withdrawals are allowed as long as the remaining balance after withdrawal is not less than zero.
 
-### Current Account :
+ ### Current Account :
 
 - **Minimum Balance Requirement:** The initial balance must be greater than or equal to $500 for a Current Account.
 - **Account Type:** The account type is set to "Current Account."
 - **Withdrawal Constraints:** Withdrawals are allowed only if the remaining balance after withdrawal is greater than or equal to the minimum balance.
 
-2. **Display All Accounts:**
+2. *Display All Accounts:*
    - View details of all active accounts in the bank.
    - If no accounts are created, a message will be displayed.
 
-3. **Update an Account:**
+3. *Update an Account:*
    - Modify the account's name and password.
    - See the updated account information.
 
-4. **Delete an Account:**
+4. *Delete an Account:*
    - Mark an account as deleted, clearing its details.
    - The account number is added to a queue for potential reuse.
 
-5. **Deposit an Amount:**
+5. *Deposit an Amount:*
    - Add funds to your account.
    - Confirm the successful deposit and view the updated balance.
 
-6. **Withdraw an Amount:**
+6. *Withdraw an Amount:*
    - Take money out of your account.
    - Confirm the successful withdrawal and view the updated balance.
 
-7. **Search for an Account:**
+7. *Search for an Account:*
    - Find an account by providing the account number and password.
    - View the account details if found.
 
-8. **Exit:**
+8. *Exit:*
    - Choose option `8` to gracefully exit the application.
-
 
 
 ## Instructions
