@@ -83,8 +83,7 @@ public class Bank {
 
                 DeletedAccounts.remove();
 
-            }
-            else{
+            } else {
                 newAccount.setAccountNumber(accountnum);
 
                 accounts.add(newAccount);
@@ -96,7 +95,7 @@ public class Bank {
             // accounts are deleted
             // if there is no deleted accounts left in the DeletedAccounts Queue then
             // array list size +1 will be new account number
-           
+
             System.out.println("Account created successfully.");
         } else {
             System.out.println("Account creation failed");
@@ -160,8 +159,7 @@ public class Bank {
         System.out.println("Enter your account password");
         String accountPassword = scanner.nextLine();
 
-        if (accountNumber <= accounts.size() && accounts.get(accountNumber - 1).isAccountCreated()
-                && accounts.get(accountNumber - 1).getAccountPassword().equals(accountPassword)) {
+        if (this.isAccountValid(accountNumber, accountPassword)) {
 
             account obj = accounts.get(accountNumber - 1);
             obj.setAccountOwnerName("");
@@ -178,7 +176,54 @@ public class Bank {
 
             System.out.println("\n -----------------------");
 
+        } else {
+            System.out.println("\n Wrong  Password or Account does not exist");
         }
+
+    }
+
+   
+
+    public void AccountDeposit() {
+
+        System.out.println("Enter your account number");
+        int accountNumber = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.println("Enter your account password");
+        String accountPassword = scanner.nextLine();
+
+        if (this.isAccountValid(accountNumber, accountPassword)) {
+            System.out.println("Enter amount you want to deposit ");
+            double DepositAmmount = scanner.nextDouble();
+            accounts.get(accountNumber - 1).deposit(DepositAmmount);
+        }
+
+    }
+
+    public void AccountWithdraw() {
+
+        System.out.println("Enter your account number");
+        int accountNumber = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.println("Enter your account password");
+        String accountPassword = scanner.nextLine();
+
+        if (this.isAccountValid(accountNumber, accountPassword)) {
+            System.out.println("Enter amount you want to withdraw ");
+            double WithdrawAmmount = scanner.nextDouble();
+            accounts.get(accountNumber - 1).withdraw(WithdrawAmmount);
+        }
+
+    }
+    
+
+
+
+    public boolean isAccountValid(int accountNumber, String accountPassword) {
+        return accountNumber <= accounts.size() && accounts.get(accountNumber - 1).isAccountCreated()
+                && accounts.get(accountNumber - 1).getAccountPassword().equals(accountPassword);
 
     }
 

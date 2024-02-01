@@ -22,11 +22,11 @@ public class run {
                   newBank.DeleteAccount();
                 }
                 else if(Userinput.choice==5){
-                  // newBank.updateAccount();
+                  newBank.AccountDeposit();
 
                 }
                 else if(Userinput.choice==6){
-                  // newBank.updateAccount();
+                 newBank.AccountWithdraw();
                 }
                 else if(Userinput.choice==7){
                   // newBank.updateAccount();
