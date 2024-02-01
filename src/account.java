@@ -50,7 +50,7 @@ public class account {
 
 
     public void displayAccountInfo() {
-        
+
         System.out.println("Account Details:");
         System.out.println("Name: " + this.accountOwnerName);
         System.out.println("Account Number: " + this.accountNumber);
@@ -77,3 +77,6 @@ public class account {
     }
     
 }
+
+
+

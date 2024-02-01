@@ -1,5 +1,3 @@
-
-
 public class run {
 
    public run(){
@@ -12,20 +10,24 @@ public class run {
         while (ck) {
 
             userinput Userinput=new userinput();
- 
+          
            
                 if(Userinput.choice==1){
                 // it will create new a account  
+                System.out.println(Userinput.choice);
+
+
                   newBank.createAccount();
+                  
                 }
                 else if(Userinput.choice==2){
-
-                  newBank.DisplayAllAccount();
-                  
+                  newBank.displayAllAccounts();
+                }
+                else if(Userinput.choice==3){
+                  newBank.updateAccount();
 
                 }
                 else if(Userinput.choice==8){
-                  // code will exit by user input of 8  
                   ck=false;
 
                 }
@@ -37,6 +39,9 @@ public class run {
 
             
         }
+
+        newBank.closeScanner();
+
     }
 
     
