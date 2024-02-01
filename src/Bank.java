@@ -12,10 +12,28 @@ public class Bank {
 
     public void createAccount() {
         double minimumBalance = 500;
+        int type=0;
+        System.out.println("Select your Account type: ");
+        System.out.println("1.Saving  Account");
+        System.out.println("2.Salary Account");
+        System.out.println("3.Current  Account");
+        System.out.println("Enter Your option (eg.1 or 2)");
+        type=scanner.nextInt();
+        scanner.nextLine();
 
+
+        
+
+
+
+
+
+
+
+
+       
         System.out.println("Enter account owner name: ");
         String name = scanner.nextLine();
-        System.out.println(name);
 
         String accountNumber = String.valueOf(accounts.size() + 1);
 
@@ -35,17 +53,30 @@ public class Bank {
             return;
         }
 
-        if (initialDeposit < minimumBalance) {
-            System.out.println("Initial deposit must be at least $" + minimumBalance);
-            System.out.println("Account creation failed");
-            return;
+       
+
+        account newAccount=new account(name, accountNumber, creationDate, password, 0) ;
+        
+        if(type==1){
+
+          newAccount = new SavingAccount(name, accountNumber, creationDate, password, initialDeposit);
+
+        }
+        else if(type==2){
+            newAccount = new SalaryAccount(name, accountNumber, creationDate, password, initialDeposit);
+
+        }
+        else if(type==3){
+            newAccount = new CurrentAccount(name, accountNumber, creationDate, password, initialDeposit);
+
         }
 
-        account newAccount = new account(name, accountNumber, creationDate, password, initialDeposit);
-        accounts.add(newAccount);
+        //isAccountCreated method by defult return false if account is not created
+
+        if(newAccount.isAccountCreated())  accounts.add(newAccount);
 
         System.out.println("Account created successfully.");
-        newAccount.displayAccountInfo();
+        
     }
 
     public void displayAllAccounts() {
