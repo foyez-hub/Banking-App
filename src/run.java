@@ -29,7 +29,7 @@ public class run {
                  newBank.AccountWithdraw();
                 }
                 else if(Userinput.choice==7){
-                  // newBank.updateAccount();
+                  newBank.SearchAccount();
                 }
                 else if(Userinput.choice==8){
                   ck=false;

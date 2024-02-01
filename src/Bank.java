@@ -20,19 +20,27 @@ public class Bank {
 
     public void createAccount() {
         int type = 0;
+        System.out.println("---------------------------------");
 
         System.out.println("Select your Account type: ");
         System.out.println("1.Saving  Account");
         System.out.println("2.Salary Account");
         System.out.println("3.Current  Account");
+
+        System.out.println("---------------------------------\n");
+
         System.out.println("Enter Your option (eg.1 )");
-        type = scanner.nextInt();
-        scanner.nextLine();
+        try {
+            type = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input for account type. Please enter a valid option.");
+            return;
+        }
 
         System.out.println("Enter account owner name: ");
         String name = scanner.nextLine();
 
-        System.out.println("Enter account creation date: ");
+        System.out.println("Enter account creation date (format -> [day-month-year] , eg-> 1-2-24 ) : ");
         String creationDate = scanner.nextLine();
 
         System.out.println("Enter your password: ");
@@ -113,39 +121,46 @@ public class Bank {
         }
 
         if (!ck)
+          System.out.println("---------------------------------\n");
+
             System.out.println("There is no account created yet");
     }
 
     public void updateAccount() {
+
         System.out.println("Enter your account number");
-        int accountNumber = scanner.nextInt();
-        scanner.nextLine();
+        int accountNumber;
+        try {
+            accountNumber = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input for account number. Please enter a valid number.");
+            return;
+        }
 
         System.out.println("Enter your account password");
         String accountPassword = scanner.nextLine();
 
-        boolean accountFound = false;
-
-        for (account account : accounts) {
-            if (account.getAccountPassword().equals(accountPassword) && account.getAccountNumber() == accountNumber) {
-                accountFound = true;
-
+       
+        if (this.isAccountValid(accountNumber, accountPassword)) {
                 System.out.println("Enter new name: ");
                 String newName = scanner.nextLine();
-                account.setAccountOwnerName(newName);
+                accounts.get(accountNumber-1) .setAccountOwnerName(newName);
 
                 System.out.println("Enter new password: ");
                 String newPassword = scanner.nextLine();
-                account.setAccountPassword(newPassword);
+                accounts.get(accountNumber-1).setAccountPassword(newPassword);
+
+                System.out.println("---------------------------------------\n");
 
                 System.out.println("Updated Information->");
-                account.displayAccountInfo();
+                accounts.get(accountNumber-1).displayAccountInfo();
 
-                break; // Break out of the loop once the account is found and updated
-            }
+                System.out.println("\n---------------------------------------");
+
+
+
         }
-
-        if (!accountFound) {
+        else{
             System.out.println("Enter valid account number or password");
         }
     }
@@ -153,8 +168,14 @@ public class Bank {
     public void DeleteAccount() {
 
         System.out.println("Enter your account number");
-        int accountNumber = scanner.nextInt();
-        scanner.nextLine();
+        int accountNumber;
+
+        try {
+            accountNumber = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input for account number. Please enter a valid number.");
+            return;
+        }
 
         System.out.println("Enter your account password");
         String accountPassword = scanner.nextLine();
@@ -182,13 +203,16 @@ public class Bank {
 
     }
 
-   
-
     public void AccountDeposit() {
 
         System.out.println("Enter your account number");
-        int accountNumber = scanner.nextInt();
-        scanner.nextLine();
+        int accountNumber;
+        try {
+            accountNumber = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input for account number. Please enter a valid number.");
+            return;
+        }
 
         System.out.println("Enter your account password");
         String accountPassword = scanner.nextLine();
@@ -197,6 +221,8 @@ public class Bank {
             System.out.println("Enter amount you want to deposit ");
             double DepositAmmount = scanner.nextDouble();
             accounts.get(accountNumber - 1).deposit(DepositAmmount);
+        } else {
+            System.out.println("Account not Found..");
         }
 
     }
@@ -204,7 +230,14 @@ public class Bank {
     public void AccountWithdraw() {
 
         System.out.println("Enter your account number");
-        int accountNumber = scanner.nextInt();
+        int accountNumber;
+        try {
+            accountNumber = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input for account number. Please enter a valid number.");
+            return;
+        }
+        
         scanner.nextLine();
 
         System.out.println("Enter your account password");
@@ -214,12 +247,38 @@ public class Bank {
             System.out.println("Enter amount you want to withdraw ");
             double WithdrawAmmount = scanner.nextDouble();
             accounts.get(accountNumber - 1).withdraw(WithdrawAmmount);
+        } else {
+            System.out.println("Account not Found..");
         }
 
     }
-    
 
+    public void SearchAccount() {
 
+        System.out.println("Enter your account number");
+        int accountNumber;
+        try {
+            accountNumber = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input for account number. Please enter a valid number.");
+            return;
+        }
+
+        System.out.println("Enter your account password");
+        String accountPassword = scanner.nextLine();
+
+        if (this.isAccountValid(accountNumber, accountPassword)) {
+            System.out.println("Account Found..");
+
+            System.out.println("----------------------------------------");
+            accounts.get(accountNumber - 1).displayAccountInfo();
+            System.out.println("----------------------------------------");
+
+        } else {
+            System.out.println("Account not Found..");
+        }
+
+    }
 
     public boolean isAccountValid(int accountNumber, String accountPassword) {
         return accountNumber <= accounts.size() && accounts.get(accountNumber - 1).isAccountCreated()

@@ -14,6 +14,14 @@ public class userinput {
 
     public void printchoices() {
 
+        try {
+            // Sleep for 3 seconds (3000 milliseconds)
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            // Handle the exception if the sleep is interrupted
+            e.printStackTrace();
+        }
+
         System.out.println("1. Create a new account");
         System.out.println("2. Display all accounts");
         System.out.println("3. Update an account");
