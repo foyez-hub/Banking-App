@@ -1,9 +1,17 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Bank {
     private ArrayList<account> accounts;
+    Queue<Integer> DeletedAccounts = new LinkedList<>();
+
     private Scanner scanner;
+
+    public ArrayList<account> getAccounts() {
+        return accounts;
+    }
 
     public Bank() {
         this.accounts = new ArrayList<>();
@@ -11,31 +19,18 @@ public class Bank {
     }
 
     public void createAccount() {
-        double minimumBalance = 500;
-        int type=0;
+        int type = 0;
+
         System.out.println("Select your Account type: ");
         System.out.println("1.Saving  Account");
         System.out.println("2.Salary Account");
         System.out.println("3.Current  Account");
-        System.out.println("Enter Your option (eg.1 or 2)");
-        type=scanner.nextInt();
+        System.out.println("Enter Your option (eg.1 )");
+        type = scanner.nextInt();
         scanner.nextLine();
 
-
-        
-
-
-
-
-
-
-
-
-       
         System.out.println("Enter account owner name: ");
         String name = scanner.nextLine();
-
-        String accountNumber = String.valueOf(accounts.size() + 1);
 
         System.out.println("Enter account creation date: ");
         String creationDate = scanner.nextLine();
@@ -44,8 +39,9 @@ public class Bank {
         String password = scanner.nextLine();
 
         System.out.println("Enter initial deposit amount: ");
+
         double initialDeposit;
-        
+
         try {
             initialDeposit = Double.parseDouble(scanner.nextLine());
         } catch (NumberFormatException e) {
@@ -53,41 +49,78 @@ public class Bank {
             return;
         }
 
-       
+        account newAccount = new account(name, -1, creationDate, password, 0);
+        // account number is negetive -1 means account is not created yet
+        if (type == 1) {
 
-        account newAccount=new account(name, accountNumber, creationDate, password, 0) ;
-        
-        if(type==1){
+            newAccount = new SavingAccount(name, -1, creationDate, password, initialDeposit);
 
-          newAccount = new SavingAccount(name, accountNumber, creationDate, password, initialDeposit);
+        } else if (type == 2) {
+            newAccount = new SalaryAccount(name, -1, creationDate, password, initialDeposit);
 
-        }
-        else if(type==2){
-            newAccount = new SalaryAccount(name, accountNumber, creationDate, password, initialDeposit);
-
-        }
-        else if(type==3){
-            newAccount = new CurrentAccount(name, accountNumber, creationDate, password, initialDeposit);
+        } else if (type == 3) {
+            newAccount = new CurrentAccount(name, -1, creationDate, password, initialDeposit);
 
         }
 
-        //isAccountCreated method by defult return false if account is not created
+        // isAccountCreated method by defult return false if account is not created
+        // account will not create if it does not met the requirement of minimum balance
 
-        if(newAccount.isAccountCreated())  accounts.add(newAccount);
+        if (newAccount.isAccountCreated()) {
 
-        System.out.println("Account created successfully.");
-        
+            int accountnum = accounts.size() + 1;
+            if (DeletedAccounts.size() >= 1) {
+                // chechking is there any account in the DeletedAccounts queue
+
+                accountnum = DeletedAccounts.peek();
+
+                account obj = accounts.get(accountnum - 1);
+                obj.setAccountOwnerName(newAccount.getAccountOwnerName());
+                obj.setBalance(newAccount.getBalance());
+                obj.setAccountPassword(newAccount.getAccountPassword());
+                obj.setisAccountCreated(newAccount.isAccountCreated());
+                obj.setCreationDate(newAccount.getCreationDate());
+
+                DeletedAccounts.remove();
+
+            }
+            else{
+                newAccount.setAccountNumber(accountnum);
+
+                accounts.add(newAccount);
+
+            }
+
+            // when all requiement met account number will be given
+            // first-> new account number will be given to the old accounts number which
+            // accounts are deleted
+            // if there is no deleted accounts left in the DeletedAccounts Queue then
+            // array list size +1 will be new account number
+           
+            System.out.println("Account created successfully.");
+        } else {
+            System.out.println("Account creation failed");
+        }
+
     }
 
     public void displayAllAccounts() {
+        boolean ck = false;
         for (account account : accounts) {
-            account.displayAccountInfo();
+            if (account.isAccountCreated()) {
+                account.displayAccountInfo();
+                ck = true;
+            }
         }
+
+        if (!ck)
+            System.out.println("There is no account created yet");
     }
 
     public void updateAccount() {
         System.out.println("Enter your account number");
-        String accountNumber = scanner.nextLine();
+        int accountNumber = scanner.nextInt();
+        scanner.nextLine();
 
         System.out.println("Enter your account password");
         String accountPassword = scanner.nextLine();
@@ -95,7 +128,7 @@ public class Bank {
         boolean accountFound = false;
 
         for (account account : accounts) {
-            if (account.getAccountPassword().equals(accountPassword) && account.getAccountNumber().equals(accountNumber)) {
+            if (account.getAccountPassword().equals(accountPassword) && account.getAccountNumber() == accountNumber) {
                 accountFound = true;
 
                 System.out.println("Enter new name: ");
@@ -116,6 +149,37 @@ public class Bank {
         if (!accountFound) {
             System.out.println("Enter valid account number or password");
         }
+    }
+
+    public void DeleteAccount() {
+
+        System.out.println("Enter your account number");
+        int accountNumber = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.println("Enter your account password");
+        String accountPassword = scanner.nextLine();
+
+        if (accountNumber <= accounts.size() && accounts.get(accountNumber - 1).isAccountCreated()
+                && accounts.get(accountNumber - 1).getAccountPassword().equals(accountPassword)) {
+
+            account obj = accounts.get(accountNumber - 1);
+            obj.setAccountOwnerName("");
+            obj.setBalance(0.0);
+            obj.setAccountPassword("");
+            obj.setisAccountCreated(false);
+            obj.setCreationDate("");
+
+            DeletedAccounts.add(accountNumber);
+
+            System.out.println("\n -----------------------");
+
+            System.out.println("\n Your account Deleted");
+
+            System.out.println("\n -----------------------");
+
+        }
+
     }
 
     public void closeScanner() {

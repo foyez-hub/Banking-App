@@ -18,6 +18,19 @@ public class run {
                   newBank.updateAccount();
 
                 }
+                else if(Userinput.choice==4){
+                  newBank.DeleteAccount();
+                }
+                else if(Userinput.choice==5){
+                  // newBank.updateAccount();
+
+                }
+                else if(Userinput.choice==6){
+                  // newBank.updateAccount();
+                }
+                else if(Userinput.choice==7){
+                  // newBank.updateAccount();
+                }
                 else if(Userinput.choice==8){
                   ck=false;
 

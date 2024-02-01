@@ -1,7 +1,7 @@
 public class account {
 
     private String accountOwnerName;
-    private String accountNumber;
+    private int accountNumber;
     private String creationDate;
     private String accountPassword;
     private double balance;
@@ -14,7 +14,7 @@ public class account {
 
    
 
-    public account(String accountOwnerName, String accountNumber, String creationDate,String accountPassword, double balance) {
+    public account(String accountOwnerName, int accountNumber, String creationDate,String accountPassword, double balance) {
         this.accountOwnerName = accountOwnerName;
         this.accountNumber = accountNumber;
         this.creationDate = creationDate;
@@ -33,30 +33,39 @@ public class account {
     public void setAccountOwnerName(String accountOwnerName) {
         this.accountOwnerName = accountOwnerName;
     }
-    public void setAccountNumber(String accountNumber) {
+
+    public void setAccountNumber(int accountNumber) {
         this.accountNumber = accountNumber;
     }
+
     public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
+
     public void setAccountPassword(String accountPassword) {
         this.accountPassword = accountPassword;
     }
+
     public void setBalance(double balance) {
         this.balance = balance;
     }
+
     public String getAccountOwnerName() {
         return accountOwnerName;
     }
-    public String getAccountNumber() {
+
+    public int getAccountNumber() {
         return accountNumber;
     }
+
     public String getCreationDate() {
         return creationDate;
     }
+
     public String getAccountPassword() {
         return accountPassword;
     }
+
     public double getBalance() {
         return balance;
     }
@@ -64,6 +73,7 @@ public class account {
     public boolean isAccountCreated() {
         return isAccountCreated;
     }
+
 
     public void setisAccountCreated(boolean isAccountCreated) {
         this.isAccountCreated = isAccountCreated;
@@ -112,7 +122,7 @@ class SavingAccount extends account {
 
     private static final double MINIMUM_BALANCE = 100.0;
 
-    public SavingAccount(String accountOwnerName, String accountNumber, String creationDate, String accountPassword, double balance) {
+    public SavingAccount(String accountOwnerName, int accountNumber, String creationDate, String accountPassword, double balance) {
         super(accountOwnerName, accountNumber, creationDate, accountPassword, balance);
         if (balance < MINIMUM_BALANCE) {
             System.out.println("Minimum balance of $" + MINIMUM_BALANCE + " required to open a Saving Account.");
@@ -151,7 +161,7 @@ class SalaryAccount extends account {
 
     private static final double MINIMUM_BALANCE = 0.0; 
 
-    public SalaryAccount(String accountOwnerName, String accountNumber, String creationDate, String accountPassword, double balance) {
+    public SalaryAccount(String accountOwnerName, int accountNumber, String creationDate, String accountPassword, double balance) {
         super(accountOwnerName, accountNumber, creationDate, accountPassword, balance);
         super.setAccountType("Salary Account");
         super.setisAccountCreated(true);
@@ -182,14 +192,13 @@ class SalaryAccount extends account {
 
    
 
-    public CurrentAccount(String accountOwnerName, String accountNumber, String creationDate, String accountPassword, double balance) {
+    public CurrentAccount(String accountOwnerName, int accountNumber, String creationDate, String accountPassword, double balance) {
         super(accountOwnerName, accountNumber, creationDate, accountPassword, balance);
         if (balance < MINIMUM_BALANCE) {
             System.out.println("Initial balance must be greater than or equal to  $" + MINIMUM_BALANCE + " for a Current Account.");
         }else{
         super.setAccountType("Current Account");
         super.setisAccountCreated(true);
-
 
         }
 
@@ -200,11 +209,11 @@ class SalaryAccount extends account {
     public void withdraw(double amount) {
         if (getBalance() - amount >= MINIMUM_BALANCE) {
             super.withdraw(amount);
-        } else {
+        }else {
             System.out.println("Withdrawal failed. Minimum balance requirement not met.");
         }
+    }
 
-    } 
 
     public static double getMinimumBalance() {
         return MINIMUM_BALANCE;
