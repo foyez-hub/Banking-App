@@ -53,7 +53,11 @@ public class Bank {
         try {
             initialDeposit = Double.parseDouble(scanner.nextLine());
         } catch (NumberFormatException e) {
+            System.out.println("\n----------------------------------------");
+
             System.out.println("Invalid input for initial deposit. Please enter a valid amount.");
+            System.out.println("----------------------------------------\n");
+
             return;
         }
 
@@ -103,27 +107,44 @@ public class Bank {
             // accounts are deleted
             // if there is no deleted accounts left in the DeletedAccounts Queue then
             // array list size +1 will be new account number
+            System.out.println("----------------------------------------\n");
 
             System.out.println("Account created successfully.");
+            System.out.println("\n----------------------------------------");
+
         } else {
+            System.out.println("----------------------------------------\n");
+
             System.out.println("Account creation failed");
+            System.out.println("\n----------------------------------------");
+
         }
 
     }
 
     public void displayAllAccounts() {
         boolean ck = false;
+        System.out.println("----------------------------------------");
+        System.out.println("All active account in the Bank\n");
+
         for (account account : accounts) {
             if (account.isAccountCreated()) {
+
                 account.displayAccountInfo();
                 ck = true;
             }
         }
 
+        System.out.println("----------------------------------------");
+
+
         if (!ck)
           System.out.println("---------------------------------\n");
 
             System.out.println("There is no account created yet");
+
+         System.out.println("\n----------------------------------------");
+
     }
 
     public void updateAccount() {
